@@ -47,6 +47,7 @@ def play_with_bets(starting_balance=1000):
 			print("Average bet: ${}".format(sum(bets) / len(bets)))
 			print("Average bet as percentage of balance: {0:.2f}%".format(sum(bets_as_percent_of_balance) / len(bets_as_percent_of_balance) * 100))
 			dare_devil = ". What a dare devil!" if all_ins == rounds else "."
+			dare_devil = dare_devil + " (Didn't work out though, did it?)" if balance < starting_balance else dare_devil
 			print("You went 'all-in' {1:.2f}% of the time ({0} time(s)){2}".format(all_ins, all_ins / rounds * 100, dare_devil))
 			return
 		try:
@@ -56,6 +57,9 @@ def play_with_bets(starting_balance=1000):
 			continue
 		if bet > balance:
 			print("You cannot bet more than your balance of ${}".format(balance))
+			continue
+		if bet < 0:
+			print("You cannot bet a negative amount!")
 			continue
 		if bet == balance:
 			all_ins += 1
