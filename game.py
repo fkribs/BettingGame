@@ -30,17 +30,24 @@ def play_with_bets(starting_balance=1000):
 	bets_as_percent_of_balance = []
 	rounds = 0
 	wins = 0
+	all_ins = 0
 	while True:
 		print("Balance: ${}".format(balance))
-		bet = input("Bet: ")
+		bet = ''
+		if balance != 0:
+			bet = input("Bet (or leave empty to end game): ")
+
 		if bet == '':
+			print("\n-----GAME OVER-----")
 			print("Started with ${}".format(starting_balance))
 			print("Finished with ${}".format(balance))
 			knew_to_quit = "(You really knew when to quit!)" if balance == high else ""
 			print("Highest balance: ${} {}".format(high, knew_to_quit))
-			print("Win rate: {}%".format(wins / rounds * 100))
+			print("Win rate: {0:.2f}%".format(wins / rounds * 100))
 			print("Average bet: ${}".format(sum(bets) / len(bets)))
-			print("Average bet as percentage of balance: {}%".format(sum(bets_as_percent_of_balance) / len(bets_as_percent_of_balance) * 100))
+			print("Average bet as percentage of balance: {0:.2f}%".format(sum(bets_as_percent_of_balance) / len(bets_as_percent_of_balance) * 100))
+			dare_devil = ". What a dare devil!" if all_ins == rounds else "."
+			print("You went 'all-in' {1:.2f}% of the time ({0} time(s)){2}".format(all_ins, all_ins / rounds * 100, dare_devil))
 			return
 		try:
 			bet = int(bet)
@@ -50,6 +57,8 @@ def play_with_bets(starting_balance=1000):
 		if bet > balance:
 			print("You cannot bet more than your balance of ${}".format(balance))
 			continue
+		if bet == balance:
+			all_ins += 1
 		rounds += 1
 		bets.append(bet)
 		bets_as_percent_of_balance.append(bet / balance)
