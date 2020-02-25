@@ -38,7 +38,6 @@ def play_with_bets(starting_balance=1000):
 		bet = ''
 		if balance != 0:
 			bet = input("Bet (or leave empty to end game): ")
-
 		if bet == '':
 			print("\n-----GAME OVER-----")
 			if rounds == 0:
@@ -52,7 +51,7 @@ def play_with_bets(starting_balance=1000):
 			print("Average bet as percentage of balance: {0:.2f}%".format(sum(bets_as_percent_of_balance) / len(bets_as_percent_of_balance) * 100))
 			dare_devil = ". What a dare devil!" if all_ins == rounds else "."
 			dare_devil = dare_devil + " (Didn't work out though, did it?)" if balance < starting_balance and all_ins == rounds else dare_devil
-			dare_devil = " COWARD!" if all_ins == 0 else "."
+			dare_devil = " COWARD!" if all_ins == 0 else dare_devil
 			print("You went 'all-in' {1:.2f}% of the time ({0} {3}){2}".format(all_ins, all_ins / rounds * 100, dare_devil, "time" if all_ins == 1 else "times"))
 			return
 		try:
