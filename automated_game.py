@@ -134,7 +134,7 @@ def play_with_bets_bot(starting_balance=1000):
 			if attempts == 1:
 				bonus = math.ceil(bet * .5)
 			if bonus != 0:
-				print("LEFTOVER BONUS +{}!!! (You guessed correctly in {} {}!)".format(bonus, attempts, "try" if attempts == 1 else "tries"))
+				print("LEFTOVER BONUS +{:0,.2f}!!! (You guessed correctly in {} {}!)".format(bonus, attempts, "try" if attempts == 1 else "tries"))
 			balance += (bet + bonus)
 			wins += 1
 		else:
