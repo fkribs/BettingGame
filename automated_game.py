@@ -46,7 +46,7 @@ class BetterBot():
 
 	
 def play_with_bets_bot(starting_balance=1000):
-	bot = BetterBot()
+	bot = BetterBot(True)
 	def play_bot():
 		value = random.randint(0,9)
 		attempts = 0
