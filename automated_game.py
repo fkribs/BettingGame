@@ -3,12 +3,12 @@ import random
 class BetterBot():
 	last_guess = -1
 	last_result = 0
-	def __init__(self, wait_between):
-		self.wait_between = wait_between
 	def Get_Guess(self):
+		if self.last_guess == 2 or self.last_guess == 4 or self.last_guess == 7 or self.last_guess == 9:
+			self.last_guess = -1
 		if self.last_guess == -1:
 			self.last_guess = 5
-		elif self.last_result == 1:
+		elif self.last_result == -1:
 			if self.last_guess == 5:
 				self.last_guess = 8
 			elif self.last_guess == 8:
@@ -17,7 +17,7 @@ class BetterBot():
 				self.last_guess = 4
 			else:
 				self.last_guess = -1
-		elif self.last_result == -1:
+		elif self.last_result == 1:
 			if self.last_guess == 5:
 				self.last_guess = 3
 			elif self.last_guess == 8:
@@ -28,34 +28,32 @@ class BetterBot():
 				self.last_guess = -1
 		elif self.last_result == 0:
 			self.last_guess = -1
-		print(last_guess)
 		return self.last_guess
 
 	def Send_Guess_Result(self, message):
 		if message == "Too high":
-			last_result = 1
+			self.last_result = 1
 		elif message == "Too low":
-			last_result = -1
+			self.last_result = -1
 		else:
 			last_result = 0
 	def Get_Bet(self, balance):
-		if self.wait_between:
-			wait= input(": ")
 		bet = math.ceil(balance * .3)
 		print("{:0,}".format(bet))
 		return bet
 
 	
 def play_with_bets_bot(starting_balance=1000):
-	bot = BetterBot(True)
+	bot = BetterBot()
 	def play_bot():
 		value = random.randint(0,9)
 		attempts = 0
 		while True:
 			attempts += 1
 			try:
-				print("Guess: ")
+				wait = input("Guess: ")
 				guess = bot.Get_Guess()
+				print(guess)
 			except:
 				print("Invalid guess, must be number")
 				attempts -= 1
