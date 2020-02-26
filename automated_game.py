@@ -28,6 +28,7 @@ class BetterBot():
 				self.last_guess = -1
 		elif self.last_result == 0:
 			self.last_guess = -1
+		print(last_guess)
 		return self.last_guess
 
 	def Send_Guess_Result(self, message):
@@ -38,7 +39,7 @@ class BetterBot():
 		else:
 			last_result = 0
 	def Get_Bet(self, balance):
-		if wait_between:
+		if self.wait_between:
 			wait= input(": ")
 		bet = math.ceil(balance * .3)
 		print("{:0,}".format(bet))
