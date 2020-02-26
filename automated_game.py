@@ -5,10 +5,8 @@ class BetterBot():
 	last_result = 0
 	def __init__(self, wait_between):
 		self.wait_between = wait_between
-	def Get_Guess(self):
-		if self.last_guess == 2 or self.last_guess == 4 or self.last_guess == 7 or self.last_guess == 9:
-			self.last_guess = -1
-		if self.last_guess == -1:
+	def Get_Guess(self, first=False):
+		if first:
 			self.last_guess = 5
 		elif self.last_result == -1:
 			if self.last_guess == 5:
@@ -48,7 +46,6 @@ class BetterBot():
 		print("${:0,}".format(bet))
 		return bet
 
-
 	
 def play_with_bets_bot(starting_balance=1000):
 	bot = BetterBot(True)
@@ -59,7 +56,10 @@ def play_with_bets_bot(starting_balance=1000):
 			attempts += 1
 			try:
 				print("Guess: ")
-				guess = bot.Get_Guess()
+				if attempts == 1:
+					guess = bot.Get_Guess(True)
+				else:
+					guess = bot.Get_Guess()
 				print(guess)
 			except:
 				print("Invalid guess, must be number")
