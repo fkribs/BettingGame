@@ -45,7 +45,7 @@ class BetterBot():
 		if wait.upper() == 'Q':
 			return ""
 		bet = math.ceil(balance * .3)
-		print("{:0,}".format(bet))
+		print("${:0,}".format(bet))
 		return bet
 
 
