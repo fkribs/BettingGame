@@ -1,13 +1,60 @@
+import math
+import random
+class BetterBot():
+	last_guess = -1
+	last_result = 0
+	def __init__(self, wait_between):
+		self.wait_between = wait_between
+	def Get_Guess(self):
+		if self.last_guess == -1:
+			self.last_guess = 5
+		elif self.last_result == 1:
+			if self.last_guess == 5:
+				self.last_guess = 8
+			elif self.last_guess == 8:
+				self.last_guess = 9
+			elif self.last_guess == 3:
+				self.last_guess = 4
+			else:
+				self.last_guess = -1
+		elif self.last_result == -1:
+			if self.last_guess == 5:
+				self.last_guess = 3
+			elif self.last_guess == 8:
+				self.last_guess = 7
+			elif self.last_guess == 3:
+				self.last_guess = 2
+			else:
+				self.last_guess = -1
+		elif self.last_result == 0:
+			self.last_guess = -1
+		return self.last_guess
+
+	def Send_Guess_Result(self, message):
+		if message == "Too high":
+			last_result = 1
+		elif message == "Too low":
+			last_result = -1
+		else:
+			last_result = 0
+	def Get_Bet(self, balance):
+		if wait_between:
+			wait= input(": ")
+		bet = math.ceil(balance * .3)
+		print("{:0,}".format(bet))
+		return bet
+
+	
 def play_with_bets_bot(starting_balance=1000):
-	import math
-	import random
-	def play():
+	bot = BetterBot()
+	def play_bot():
 		value = random.randint(0,9)
 		attempts = 0
 		while True:
 			attempts += 1
 			try:
-				guess = int(input("Guess: "))
+				print("Guess: ")
+				guess = bot.Get_Guess()
 			except:
 				print("Invalid guess, must be number")
 				attempts -= 1
@@ -23,6 +70,7 @@ def play_with_bets_bot(starting_balance=1000):
 			else:
 				message = "You got it!"
 			print(message)
+			bot.Send_Guess_Result(message)
 			if guess == value or attempts == 3:
 				print("It was {}".format(value))
 				return (guess == value, attempts)
@@ -38,7 +86,7 @@ def play_with_bets_bot(starting_balance=1000):
 		bet = ''
 		if balance != 0:
 			print("Bet (or leave empty to end game): ")
-			bet = BetterBot.Get_Bet(balance)
+			bet = bot.Get_Bet(balance)
 		if bet == '':
 			print("\n-----GAME OVER-----")
 			if rounds == 0:
