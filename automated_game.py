@@ -3,6 +3,8 @@ import random
 class BetterBot():
 	last_guess = -1
 	last_result = 0
+	def __init__(self, wait_between):
+		self.wait_between = wait_between
 	def Get_Guess(self):
 		if self.last_guess == 2 or self.last_guess == 4 or self.last_guess == 7 or self.last_guess == 9:
 			self.last_guess = -1
@@ -38,20 +40,25 @@ class BetterBot():
 		else:
 			last_result = 0
 	def Get_Bet(self, balance):
+		if self.wait_between:
+			wait = input("Press enter to auto-bet or type 'q' to quit")
+		if wait.upper() == 'Q':
+			return ""
 		bet = math.ceil(balance * .3)
 		print("{:0,}".format(bet))
 		return bet
 
+
 	
 def play_with_bets_bot(starting_balance=1000):
-	bot = BetterBot()
+	bot = BetterBot(True)
 	def play_bot():
 		value = random.randint(0,9)
 		attempts = 0
 		while True:
 			attempts += 1
 			try:
-				wait = input("Guess: ")
+				print("Guess: ")
 				guess = bot.Get_Guess()
 				print(guess)
 			except:
